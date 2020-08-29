@@ -1,9 +1,11 @@
-# SFND_Unscented_Kalman_Filter
-Sensor Fusion UKF Highway Project Starter Code
+# SFND_Unscented_Kalman_Filter Highway Project
+
+Below is the roadmap of the Unscented Kalman Filter
+<img src="media/ukf_roadmap.png" width="700" height="400" />
 
 <img src="media/ukf_highway_tracked.gif" width="700" height="400" />
 
-In this project you will implement an Unscented Kalman Filter to estimate the state of multiple cars on a highway using noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
+In this project an Unscented Kalman Filter is used to estimate the state of multiple cars on a highway using noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
 
 The main program can be built and ran by doing the following from the project top directory.
 
@@ -68,9 +70,3 @@ This is optional!
 If you'd like to generate your own radar and lidar modify the code in `highway.h` to alter the cars. Also check out `tools.cpp` to
 change how measurements are taken, for instance lidar markers could be the (x,y) center of bounding boxes by scanning the PCD environment
 and performing clustering. This is similar to what was done in Sensor Fusion Lidar Obstacle Detection.
-
-## Project Instructions and Rubric
-
-This information is only accessible by people who are already enrolled in Sensor Fusion. 
-If you are enrolled, see the project page in the classroom
-for instructions and the project rubric.
