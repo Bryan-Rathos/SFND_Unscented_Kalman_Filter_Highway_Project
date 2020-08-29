@@ -7,6 +7,12 @@
 
 int main(int argc, char** argv)
 {
+	std::ofstream ofs_laser;
+	std::ofstream ofs_radar;
+	ofs_laser.open("../NIS_values/nis_laser.csv", std::ofstream::out | std::ofstream::trunc);
+	ofs_radar.open("../NIS_values/nis_radar.csv", std::ofstream::out | std::ofstream::trunc);
+	ofs_laser.close();
+	ofs_radar.close();
 
 	pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("3D Viewer"));
 	viewer->setBackgroundColor(0, 0, 0);
