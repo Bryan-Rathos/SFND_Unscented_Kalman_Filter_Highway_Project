@@ -16,9 +16,9 @@ From the table, 'df' is the degrees of freedom of the sensor measurement space. 
 
 <img src="media/nis_radar.png" width="500" height="300" />
 
-The final output of the multiple car position tracking using Unscented Kalman Filter is as follows:
+The final output of the multiple car position tracking using Unscented Kalman Filter is as shown below along with RMSE values within acceptable limits:
 
-<img src="media/ukf_highway_tracked.gif" width="700" height="400" />
+<img src="media/ukf_output.gif" width="700" height="400" />
 
 In this project an Unscented Kalman Filter is used to estimate the state of multiple cars on a highway using noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
 
