@@ -49,11 +49,6 @@ UKF::UKF() {
   weights_ = VectorXd(2 * n_aug_ + 1);          // weights vector
   NIS_radar_ = 0.0;                             // the current NIS for radar
   NIS_laser_ = 0.0;                             // the current NIS for laser 
-
-  // // Weights of sigma points
-  // weights_ = VectorXd(2 * n_aug_ + 1);
-  // weights_.fill(0.5 / (lambda_ + n_aug_));
-  // weights_(0) = lambda_ / (lambda_ + n_aug_);
 }
 
 UKF::~UKF() {}
@@ -69,6 +64,9 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
   ************************/
   if(!is_initialized_)
   {
+    // In initializing the State covariance matrix I first started with an identity
+    // However, since it wasn't within RMSE error bounds I started fine tuning with values
+    // with variances that I exepected the respective state variables to have.
     P_ << 0.2, 0, 0, 0, 0,
           0, 0.2, 0, 0, 0,
           0, 0, 4, 0, 0,
@@ -139,28 +137,9 @@ void UKF::Prediction(double delta_t) {
    * and the state covariance matrix.
    */
 
-  /************************
-  * Generate sigma points
-  ************************/
-  // create sigma point matrix
-  // MatrixXd Xsig = MatrixXd(n_x_, 2 * n_x_ + 1);
-
-  // // calculate square root of P
-  // MatrixXd A = P_.llt().matrixL();
-
-  // // set first column of sigma point matrix
-  // Xsig.col(0) = x_;                             
-  
-  // //set remaining sigma points
-  // for(int i = 0; i < n_x_; i++)
-  // {
-  //   Xsig.col(i+1) = x_ + sqrt(lambda_ + n_x_) * A.col(i);
-  //   Xsig.col(i+n_x_+1) = x_ - sqrt(lambda_ + n_x_) * A.col(i);
-  // }
-
-  /****************************
-  * Sigma points augmentation
-  ****************************/
+  /***************************************
+  * Genrate Sigma points and augmentation
+  ****************************************/
   //create augmented mean vector
   VectorXd x_aug = VectorXd::Zero(n_aug_);
 
@@ -169,9 +148,6 @@ void UKF::Prediction(double delta_t) {
 
   //create sigma point matrix
   MatrixXd Xsig_aug = MatrixXd::Zero(n_aug_, 2 * n_aug_ + 1);
-
-  // //set lambda for augmented sigma points
-  // lambda_ = 3 - n_aug_;
 
   //create augmented mean state
   x_aug.head(5) = x_;
@@ -495,5 +471,4 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   }
   nis_radar_file << NIS_radar_<< ",";
   nis_radar_file.close();
-
 }
