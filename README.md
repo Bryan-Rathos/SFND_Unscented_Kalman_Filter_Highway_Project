@@ -1,7 +1,22 @@
 # SFND_Unscented_Kalman_Filter Highway Project
 
 Below is the roadmap of the Unscented Kalman Filter
-<img src="media/ukf_roadmap.png" width="700" height="400" />
+
+<img src="media/roadmap.png" width="700" height="400" />
+
+In the `ukf.cpp` file the `ProcessMeasurement()` function calls the `Prediction()` fucntion to predict sigma point based on the Constant Turn Rate and Velocity (CTRV) motion model. It also calls the update step for the Lidar (`UpdateLidar()`) and Radar (`UpdateRadar()`) based on which sensor measurement it receives.
+
+To check weather the UKF performs well and does not underestimate or overestimate the unceratainity of the measurement we run a Normalized Innovation Squared (NIS) test which is a difference between the predicted measurement and actual measurement which is normalized by the measurement covariance matrix `S`. The NIS is a scalar value and follows a Chi-Squared Distribution. Below is a part of a chi squared table.
+
+<img src="media/chi_sq_dist.png" width="400" height="200" />
+
+From the table, 'df' is the degrees of freedom of the sensor measurement space. Radar has 3 DOF and Lidar has 2 DOF. Consider the "df=3" row for Radar. In the last column, X^2 0.050 means that ststistically in 5% of cases the NIS will be more than 7.815. Similarly for Lidar in the "df=2" the 95% line is at 5.991. If there are few values above the 95% line it means that we do not overestimate or underestimate the uncertainity of the system. If we find that all of the NIS vlaues are far below the 95% line it means we understimate the uncertainity of the system. Similarly, if a lot of values are above the 95% line it means taht we overestimate teh uncertainity in or system i.e., our extimations are actually more precise than we think. If we find that we underestimate the uncertainity, we can reduce the process noise parameter in our system to have an acceotable NIS and vice versa for the overestimate case. In our case the process noise variables are the noise in longitudinal acceleration and noise is yaw acceleration. Below is the graph of the NIS for Lidar and Radar I plotted whuch is acceptable. The fine tuned process noise parameter values are (longitudinal acceleration) `std_a = 70.0` and (yaw acceleration) `std_yawdd = 15.0`. Below are the NIS plots for Lidar and Radar respectively.
+
+<img src="media/nis_lidar.png" width="500" height="300" />
+
+<img src="media/nis_radar.png" width="500" height="300" />
+
+The final output of the multiple car position tracking using Unscented Kalman Filter is as follows:
 
 <img src="media/ukf_highway_tracked.gif" width="700" height="400" />
 
