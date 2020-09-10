@@ -16,7 +16,7 @@ From the table, 'df' is the degrees of freedom of the sensor measurement space. 
 
 <img src="media/nis_radar.png" width="500" height="300" />
 
-The final output of the multiple car position tracking using Unscented Kalman Filter is as shown below along with RMSE values within acceptable limits:
+The final output of the multiple car position tracking using Unscented Kalman Filter is as shown below along with RMSE values within acceptable limits of RMSE <= [0.30, 0.16, 0.95, 0.70] for `[x, y, v_x, v_y]`.
 
 <img src="media/ukf_output.gif" width="700" height="400" />
 
